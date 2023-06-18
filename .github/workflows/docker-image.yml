@@ -20,16 +20,3 @@ jobs:
           context: ./api
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/my_first_app:${{ github.sha }}
-
-      - name: Extract Image Digest
-        id: digest
-        run: echo "${{ steps.docker_build.outputs.digest }}"
-      
-      - name: Generate Tag Name
-        id: generate_tag
-        run: echo "::set-output name=tag_name::${{ github.ref_slug }}-${{ steps.digest.outputs.digest }}"
-
-      - name: Push Tag to Repository
-        run: |
-          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/my_first_app:${{ steps.digest.outputs.digest }} ${{ secrets.DOCKERHUB_USERNAME }}/my_first_app:${{ steps.generate_tag.outputs.tag_name }}
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/my_first_app:${{ steps.generate_tag.outputs.tag_name }}
