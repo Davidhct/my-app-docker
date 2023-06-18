@@ -17,6 +17,6 @@ jobs:
       - name: Build Docker Image
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ./api
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/my_first_app:${{ github.sha }}
