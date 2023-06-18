@@ -1,11 +1,18 @@
 import express from "express"
-
+import cors from "cors"
 const app = express()
 
 const port = 4000
 
-app.get("/", (req: any, res: { send: (arg0: string) => void }) => {
-  res.send("Hello World")
+// Enable CORS
+app.use(cors())
+
+app.get("/api/data", (req, res) => {
+  const data = {
+    message: "Hello world from the server!",
+    value: 42,
+  }
+  res.send(data)
 })
 
 app.listen(port, () =>
